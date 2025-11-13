@@ -1,34 +1,191 @@
-.App-logo {
-    height: 40vmin;
-    pointer-events: none;
+/* Custom animations and styles for ZH Solutions */
+
+/* Parallax and 3D Effects */
+.perspective-1000 {
+  perspective: 1000px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-    .App-logo {
-        animation: App-logo-spin infinite 20s linear;
-    }
+.rotate-y-12 {
+  transform: rotateY(12deg);
 }
 
-.App-header {
-    background-color: #0f0f10;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    font-size: calc(10px + 2vmin);
-    color: white;
+.-rotate-y-12 {
+  transform: rotateY(-12deg);
 }
 
-.App-link {
-    color: #61dafb;
+/* Floating Animations */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
 }
 
-@keyframes App-logo-spin {
-    from {
-        transform: rotate(0deg);
-    }
-    to {
-        transform: rotate(360deg);
-    }
+@keyframes float-delayed {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-30px);
+  }
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+.animate-float-delayed {
+  animation: float-delayed 8s ease-in-out infinite;
+  animation-delay: 1s;
+}
+
+/* 3D Rotation Animations */
+@keyframes rotate-3d {
+  0% {
+    transform: rotateY(12deg) rotateX(5deg);
+  }
+  50% {
+    transform: rotateY(-12deg) rotateX(-5deg);
+  }
+  100% {
+    transform: rotateY(12deg) rotateX(5deg);
+  }
+}
+
+@keyframes rotate-3d-delayed {
+  0% {
+    transform: rotateY(-12deg) rotateX(-5deg) translateX(128px) translateY(-80px);
+  }
+  50% {
+    transform: rotateY(12deg) rotateX(5deg) translateX(128px) translateY(-80px);
+  }
+  100% {
+    transform: rotateY(-12deg) rotateX(-5deg) translateX(128px) translateY(-80px);
+  }
+}
+
+.animate-3d-rotate {
+  animation: rotate-3d 10s ease-in-out infinite;
+}
+
+.animate-3d-rotate-delayed {
+  animation: rotate-3d-delayed 12s ease-in-out infinite;
+  animation-delay: 1.5s;
+}
+
+/* Fade In Animations */
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slide-up {
+  from {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slide-up-delayed {
+  from {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fade-in 0.8s ease-out forwards;
+}
+
+.animate-fade-in-delayed {
+  animation: fade-in 1s ease-out 0.3s forwards;
+  opacity: 0;
+}
+
+.animate-slide-up {
+  animation: slide-up 0.8s ease-out forwards;
+}
+
+.animate-slide-up-delayed {
+  animation: slide-up-delayed 1s ease-out 0.2s forwards;
+  opacity: 0;
+}
+
+/* Scroll Indicator Animation */
+@keyframes scroll {
+  0% {
+    transform: translateY(0);
+    opacity: 0;
+  }
+  40% {
+    opacity: 1;
+  }
+  80% {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+.animate-scroll {
+  animation: scroll 2s ease-out infinite;
+}
+
+/* Smooth Transitions */
+* {
+  transition-property: color, background-color, border-color, transform, box-shadow;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+}
+
+/* Remove transition from transforms to prevent conflicts */
+a, button {
+  transition-property: color, background-color, border-color, box-shadow, opacity;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0f0f23;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #4338CA, #6C63FF);
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #6C63FF, #A78BFA);
+}
+
+/* Selection Color */
+::selection {
+  background-color: rgba(99, 102, 241, 0.3);
+  color: white;
+}
+
+/* Ensure no center alignment on App container */
+.App {
+  min-height: 100vh;
 }
