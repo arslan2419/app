@@ -1,6 +1,69 @@
-import React from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Button } from './ui/button';
 import { ArrowRight, Code2, Sparkles } from 'lucide-react';
+
+// Counter component for animated numbers
+const AnimatedCounter = ({ end, suffix = '', duration = 2000 }) => {
+  const [count, setCount] = useState(0);
+  const [hasAnimated, setHasAnimated] = useState(false);
+  const counterRef = useRef(null);
+
+  useEffect(() => {
+    const animateCounter = () => {
+      const startTime = Date.now();
+      const startValue = 0;
+      const endValue = end;
+
+      const animate = () => {
+        const now = Date.now();
+        const elapsed = now - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+
+        // Easing function for smooth animation
+        const easeOutQuart = 1 - Math.pow(1 - progress, 4);
+        const currentValue = Math.floor(startValue + (endValue - startValue) * easeOutQuart);
+
+        setCount(currentValue);
+
+        if (progress < 1) {
+          requestAnimationFrame(animate);
+        } else {
+          setCount(endValue);
+        }
+      };
+
+      requestAnimationFrame(animate);
+    };
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting && !hasAnimated) {
+            setHasAnimated(true);
+            animateCounter();
+          }
+        });
+      },
+      { threshold: 0.3 }
+    );
+
+    if (counterRef.current) {
+      observer.observe(counterRef.current);
+    }
+
+    return () => {
+      if (counterRef.current) {
+        observer.unobserve(counterRef.current);
+      }
+    };
+  }, [hasAnimated, end, duration]);
+
+  return (
+    <span ref={counterRef} className="text-3xl font-bold text-white mb-1">
+      {count}{suffix}
+    </span>
+  );
+};
 
 const Hero = () => {
   const scrollToSection = (id) => {
@@ -101,15 +164,15 @@ const Hero = () => {
           {/* Stats */}
           <div className="grid grid-cols-3 gap-8 mt-16 animate-fade-in-delayed">
             <div>
-              <div className="text-3xl font-bold text-white mb-1">5+</div>
+              <AnimatedCounter end={5} suffix="+" duration={2000} />
               <div className="text-sm text-slate-400">Years Experience</div>
             </div>
             <div>
-              <div className="text-3xl font-bold text-white mb-1">50+</div>
+              <AnimatedCounter end={50} suffix="+" duration={2500} />
               <div className="text-sm text-slate-400">Projects Delivered</div>
             </div>
             <div>
-              <div className="text-3xl font-bold text-white mb-1">4</div>
+              <AnimatedCounter end={4} suffix="" duration={1500} />
               <div className="text-sm text-slate-400">Countries Served</div>
             </div>
           </div>

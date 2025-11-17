@@ -14,25 +14,42 @@ const Home = () => {
     // Smooth scroll behavior
     document.documentElement.style.scrollBehavior = 'smooth';
     
-    // Intersection Observer for fade-in animations
+    // Enhanced Intersection Observer for sophisticated scroll animations
     const observerOptions = {
-      threshold: 0.1,
-      rootMargin: '0px 0px -100px 0px'
+      threshold: 0.15,
+      rootMargin: '0px 0px -80px 0px'
     };
 
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
-          entry.target.classList.add('animate-fade-in');
+          // Add animation class to section
+          entry.target.classList.add('animate-in');
+          
+          // Once animated, stop observing to prevent re-triggering
+          observer.unobserve(entry.target);
         }
       });
     }, observerOptions);
 
-    // Observe all sections
-    const sections = document.querySelectorAll('.observe-section');
-    sections.forEach(section => observer.observe(section));
+    // Observe all sections with a slight delay to ensure DOM is ready
+    const observeSections = () => {
+      const sections = document.querySelectorAll('.observe-section');
+      sections.forEach((section, index) => {
+        // Add a small delay for initial load to create a cascade effect
+        setTimeout(() => {
+          observer.observe(section);
+        }, index * 50);
+      });
+    };
 
-    return () => observer.disconnect();
+    // Observe sections after a brief delay
+    const timeoutId = setTimeout(observeSections, 100);
+
+    return () => {
+      clearTimeout(timeoutId);
+      observer.disconnect();
+    };
   }, []);
 
   return (

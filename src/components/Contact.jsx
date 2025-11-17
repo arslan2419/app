@@ -95,12 +95,12 @@ const Contact = () => {
       value: 'arslanmukhtar.dev@gmail.com',
       link: 'mailto:arslanmukhtar.dev@gmail.com'
     },
-    {
-      icon: MapPin,
-      label: 'Location',
-      value: 'Global Services',
-      link: null
-    },
+    // {
+    //   icon: MapPin,
+    //   label: 'Location',
+    //   value: 'Global Services',
+    //   link: null
+    // },
     {
       icon: Phone,
       label: 'Call',
@@ -119,9 +119,12 @@ const Contact = () => {
     <section id="contact" className="py-24 px-6 relative observe-section opacity-0">
       <div className="container mx-auto">
         {/* Section Header */}
-        <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
-            Let's Build <span className="bg-gradient-to-r from-indigo-400 to-violet-400 bg-clip-text text-transparent">Something Great</span>
+        <div className="text-center mb-16 animate-header">
+          <h2 className="text-4xl md:text-5xl font-bold text-white mb-4 animate-heading">
+            <span className="animate-heading-word">Let's</span>{' '}
+            <span className="animate-heading-word">Build</span>{' '}
+            <span className="animate-heading-word">Something</span>{' '}
+            <span className="animate-heading-gradient bg-gradient-to-r from-indigo-400 to-violet-400 bg-clip-text text-transparent">Great</span>
           </h2>
           <p className="text-lg text-slate-400 max-w-2xl mx-auto">
             Have a project in mind? Get in touch and let's discuss how ZH Solutions can help.
@@ -134,7 +137,7 @@ const Contact = () => {
             {contactInfo.map((info, index) => {
               const Icon = info.icon;
               const content = (
-                <Card className="bg-slate-900/50 border-indigo-500/20 hover:border-indigo-500/40 transition-all duration-300 hover:shadow-lg hover:shadow-indigo-500/10 backdrop-blur-sm">
+                <Card className="animate-item bg-slate-900/50 border-indigo-500/20 hover:border-indigo-500/40 transition-all duration-300 hover:shadow-lg hover:shadow-indigo-500/10 backdrop-blur-sm">
                   <CardContent className="p-6">
                     <div className="flex flex-col items-start">
                       <div className="w-14 h-14 rounded-xl bg-slate-800/60 flex items-center justify-center flex-shrink-0 mb-4">
@@ -160,7 +163,7 @@ const Contact = () => {
           </div>
 
           {/* Contact Form */}
-          <Card className="lg:col-span-2 bg-slate-900/50 border-indigo-500/20 backdrop-blur-sm">
+          <Card className="animate-item lg:col-span-2 bg-slate-900/50 border-indigo-500/20 backdrop-blur-sm">
             <CardHeader>
               <CardTitle className="text-2xl text-white">Send us a message</CardTitle>
               <CardDescription className="text-slate-400">

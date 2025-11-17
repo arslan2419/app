@@ -30,16 +30,18 @@ const About = () => {
     <section id="about" className="py-24 px-6 relative observe-section opacity-0">
       <div className="container mx-auto">
         {/* Section Header */}
-        <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
-            About <span className="bg-gradient-to-r from-indigo-400 to-violet-400 bg-clip-text text-transparent">ZH Solutions</span>
+        <div className="text-center mb-16 animate-header">
+          <h2 className="text-4xl md:text-5xl font-bold text-white mb-4 animate-heading">
+            <span className="animate-heading-word">About</span>{' '}
+            <span className="animate-heading-word">ZH</span>{' '}
+            <span className="animate-heading-gradient bg-gradient-to-r from-indigo-400 to-violet-400 bg-clip-text text-transparent">Solutions</span>
           </h2>
         </div>
 
         {/* Content Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           {/* Left: Story */}
-          <div className="space-y-6">
+          <div className="space-y-6 animate-item">
             <div className="prose prose-invert max-w-none">
               <p className="text-lg text-slate-300 leading-relaxed">
                 Founded by <span className="text-indigo-400 font-semibold">Arslan Mukhtar</span>, a seasoned Frontend Lead with 5+ years of experience delivering SaaS products and leading global development teams.
@@ -86,7 +88,7 @@ const About = () => {
               return (
                 <Card
                   key={index}
-                  className="bg-slate-900/50 border-indigo-500/20 hover:border-indigo-500/40 transition-all duration-300 hover:shadow-lg hover:shadow-indigo-500/10 hover:-translate-y-1 backdrop-blur-sm"
+                  className="animate-item bg-slate-900/50 border-indigo-500/20 hover:border-indigo-500/40 transition-all duration-300 hover:shadow-lg hover:shadow-indigo-500/10 hover:-translate-y-1 backdrop-blur-sm"
                 >
                   <CardContent className="p-6">
                     <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-indigo-600/20 to-violet-600/20 flex items-center justify-center mb-4">

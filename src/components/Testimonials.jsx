@@ -8,9 +8,10 @@ const Testimonials = () => {
     <section className="py-24 px-6 relative observe-section opacity-0">
       <div className="container mx-auto">
         {/* Section Header */}
-        <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
-            Client <span className="bg-gradient-to-r from-indigo-400 to-violet-400 bg-clip-text text-transparent">Testimonials</span>
+        <div className="text-center mb-16 animate-header">
+          <h2 className="text-4xl md:text-5xl font-bold text-white mb-4 animate-heading">
+            <span className="animate-heading-word">Client</span>{' '}
+            <span className="animate-heading-gradient bg-gradient-to-r from-indigo-400 to-violet-400 bg-clip-text text-transparent">Testimonials</span>
           </h2>
           <p className="text-lg text-slate-400 max-w-2xl mx-auto">
             Don't just take our word for it - hear from our satisfied clients
@@ -22,7 +23,7 @@ const Testimonials = () => {
           {testimonialsData.map((testimonial, index) => (
             <Card
               key={index}
-              className="bg-slate-900/50 border-indigo-500/20 hover:border-indigo-500/40 transition-all duration-300 hover:shadow-xl hover:shadow-indigo-500/10 hover:-translate-y-1 backdrop-blur-sm"
+              className="animate-item bg-slate-900/50 border-indigo-500/20 hover:border-indigo-500/40 transition-all duration-300 hover:shadow-xl hover:shadow-indigo-500/10 hover:-translate-y-1 backdrop-blur-sm"
             >
               <CardContent className="p-6">
                 {/* Quote Icon */}
