@@ -48,6 +48,22 @@ const Contact = () => {
     setIsSubmitting(true);
 
     try {
+      // Check if EmailJS is configured
+      if (
+        EMAILJS_CONFIG.PUBLIC_KEY === 'YOUR_PUBLIC_KEY' ||
+        EMAILJS_CONFIG.SERVICE_ID === 'YOUR_SERVICE_ID' ||
+        EMAILJS_CONFIG.TEMPLATE_ID === 'YOUR_TEMPLATE_ID'
+      ) {
+        throw new Error('EmailJS is not configured. Please set up your EmailJS credentials in the .env file.');
+      }
+
+      // Log configuration for debugging (remove in production)
+      console.log('EmailJS Config:', {
+        publicKey: EMAILJS_CONFIG.PUBLIC_KEY ? 'Set' : 'Missing',
+        serviceId: EMAILJS_CONFIG.SERVICE_ID,
+        templateId: EMAILJS_CONFIG.TEMPLATE_ID
+      });
+
       // Initialize EmailJS with your public key
       emailjs.init(EMAILJS_CONFIG.PUBLIC_KEY);
 
@@ -62,25 +78,58 @@ const Contact = () => {
       };
 
       // Send email using EmailJS
-      await emailjs.send(
+      const response = await emailjs.send(
         EMAILJS_CONFIG.SERVICE_ID,
         EMAILJS_CONFIG.TEMPLATE_ID,
         templateParams
       );
+      
+      console.log('EmailJS Response:', response);
 
-      // Show success message
+      // Show success message with enhanced styling
       toast({
-        title: 'Message Sent!',
-        description: 'Thank you for reaching out. We\'ll get back to you soon.'
+        title: '✓ Message Sent Successfully!',
+        description: 'Thank you for reaching out. We\'ll get back to you within 24 hours.',
+        className: 'bg-green-500/10 border-green-500/50 text-green-100',
+        duration: 5000,
       });
 
       // Reset form
       setFormData({ name: '', email: '', company: '', message: '' });
     } catch (error) {
-      console.error('EmailJS Error:', error);
+      console.error('EmailJS Error Details:', {
+        error,
+        message: error.message,
+        text: error.text,
+        status: error.status,
+        config: {
+          serviceId: EMAILJS_CONFIG.SERVICE_ID,
+          templateId: EMAILJS_CONFIG.TEMPLATE_ID,
+          publicKey: EMAILJS_CONFIG.PUBLIC_KEY ? 'Set' : 'Missing'
+        }
+      });
+      
+      // Provide helpful error message
+      let errorMessage = 'Failed to send message. Please try again or contact us directly.';
+      
+      if (error.message && error.message.includes('not configured')) {
+        errorMessage = 'Email service is not configured. Please contact the website administrator.';
+      } else if (error.text) {
+        // Check for specific EmailJS error messages
+        if (error.text.includes('Service ID not found') || error.text.includes('service ID')) {
+          errorMessage = 'Service ID not found. Please verify your EmailJS service is set up correctly in the dashboard.';
+        } else if (error.text.includes('Template ID not found') || error.text.includes('template ID')) {
+          errorMessage = 'Template ID not found. Please verify your EmailJS template is set up correctly.';
+        } else {
+          errorMessage = `Error: ${error.text}`;
+        }
+      } else if (error.message) {
+        errorMessage = error.message;
+      }
+      
       toast({
         title: 'Error',
-        description: 'Failed to send message. Please try again or contact us directly.',
+        description: errorMessage,
         variant: 'destructive'
       });
     } finally {

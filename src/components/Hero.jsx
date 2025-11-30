@@ -138,7 +138,7 @@ const Hero = () => {
 
           {/* Subheading */}
           <p className="text-xl text-slate-300 mb-8 leading-relaxed animate-slide-up-delayed">
-            ZH Solutions helps startups and enterprises turn ideas into high-performance digital products using modern web technologies.
+            ZH Solutions helps startups and enterprises turn ideas into high-performance digital products using modern web technologies. Expert web development, mobile app development, React, Next.js, and MERN stack solutions for businesses worldwide.
           </p>
 
           {/* CTA Buttons */}

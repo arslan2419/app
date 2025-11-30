@@ -449,6 +449,19 @@ button {
   min-height: 100vh;
 }
 
+/* Hide default cursor on desktop only */
+@media (min-width: 768px) and (pointer: fine) {
+  * {
+    cursor: none !important;
+  }
+  
+  /* Show default cursor for interactive elements */
+  a, button, input, textarea, select, [role="button"], [tabindex] {
+    cursor: none !important;
+  }
+}
+
+
 #emergent-badge {
   display: none !important;
 }

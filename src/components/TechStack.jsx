@@ -30,7 +30,9 @@ const TechStack = () => {
                     <div className="w-12 h-12 mb-3 flex items-center justify-center">
                       <img
                         src={tech.icon}
-                        alt={tech.name}
+                        alt={`${tech.name} technology icon - Used by ZH Solutions for ${category} development`}
+                        title={`${tech.name} - ${category} technology`}
+                        loading="lazy"
                         className="w-full h-full object-contain group-hover:scale-110 transition-transform duration-300"
                       />
                     </div>

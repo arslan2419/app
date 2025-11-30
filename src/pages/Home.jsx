@@ -3,7 +3,7 @@ import Header from '../components/Header';
 import Hero from '../components/Hero';
 import Services from '../components/Services';
 import Projects from '../components/Projects';
-import TechStack from '../components/TechStack';
+import Pricing from '../components/Pricing';
 import About from '../components/About';
 import Testimonials from '../components/Testimonials';
 import Contact from '../components/Contact';
@@ -58,7 +58,7 @@ const Home = () => {
       <Hero />
       <Services />
       <Projects />
-      <TechStack />
+      <Pricing />
       <About />
       <Testimonials />
       <Contact />

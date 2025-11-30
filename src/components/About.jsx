@@ -42,17 +42,17 @@ const About = () => {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           {/* Left: Story */}
           <div className="space-y-6 animate-item">
-            <div className="prose prose-invert max-w-none">
+            <article className="prose prose-invert max-w-none">
               <p className="text-lg text-slate-300 leading-relaxed">
-                Founded by <span className="text-indigo-400 font-semibold">Arslan Mukhtar</span>, a seasoned Frontend Lead with 5+ years of experience delivering SaaS products and leading global development teams.
+                Founded by <strong className="text-indigo-400 font-semibold">Arslan Mukhtar</strong>, a seasoned Frontend Lead with 5+ years of experience delivering SaaS products and leading global development teams. ZH Solutions specializes in web development, mobile app development, and software development services.
               </p>
               <p className="text-lg text-slate-300 leading-relaxed">
-                At ZH Solutions, we specialize in building high-performance, scalable web applications that drive real business results. Our expertise spans the complete MERN stack, with deep knowledge in React, Next.js, TypeScript, and modern frontend architectures.
+                At ZH Solutions, we specialize in building high-performance, scalable web applications that drive real business results. Our expertise spans the complete MERN stack, with deep knowledge in React, Next.js, TypeScript, Node.js, and modern frontend architectures. We provide custom software development, UI/UX design, and enterprise solutions.
               </p>
               <p className="text-lg text-slate-300 leading-relaxed">
-                We've successfully delivered projects for clients across <span className="text-indigo-400 font-semibold">Dubai, Slovakia, the USA, and Pakistan</span>, helping startups and enterprises transform their digital presence.
+                We've successfully delivered projects for clients across <strong className="text-indigo-400 font-semibold">Dubai, Slovakia, the USA, and Pakistan</strong>, helping startups and enterprises transform their digital presence with cutting-edge web development and mobile app development solutions.
               </p>
-            </div>
+            </article>
 
             {/* Social Links */}
             <div className="flex flex-wrap gap-4 pt-4">

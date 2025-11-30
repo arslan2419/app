@@ -25,6 +25,7 @@ const Header = () => {
   const navLinks = [
     { name: 'Services', id: 'services' },
     { name: 'Projects', id: 'projects' },
+    { name: 'Pricing', id: 'pricing' },
     { name: 'About', id: 'about' },
     { name: 'Contact', id: 'contact' }
   ];

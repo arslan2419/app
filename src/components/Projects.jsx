@@ -1,10 +1,39 @@
 import React from 'react';
-import { Card, CardContent } from './ui/card';
 import { Button } from './ui/button';
-import { ExternalLink, TrendingUp } from 'lucide-react';
+import { Tabs, TabsList, TabsTrigger, TabsContent } from './ui/tabs';
+import { ExternalLink, TrendingUp, MapPin } from 'lucide-react';
 import { projectsData } from '../data/mock';
 
 const Projects = () => {
+  // Organize projects by category
+  const projectCategories = [
+    {
+      id: 'websites',
+      label: 'Websites',
+      projects: [
+        projectsData[0], // Codly
+        projectsData[1], // Gecora
+        projectsData[3], // TUKE
+      ]
+    },
+    {
+      id: 'apps',
+      label: 'Apps',
+      projects: [
+        // Add mobile app projects here when available
+      ]
+    },
+    {
+      id: 'branding',
+      label: 'Branding & Design',
+      projects: [
+        projectsData[2], // Zhir AI
+        projectsData[4], // Gigant
+        projectsData[5], // Legro
+      ]
+    }
+  ];
+
   return (
     <section id="projects" className="py-24 px-6 relative observe-section opacity-0">
       <div className="container mx-auto">
@@ -19,62 +48,122 @@ const Projects = () => {
           </p>
         </div>
 
-        {/* Projects Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {projectsData.map((project, index) => (
-            <Card
-              key={index}
-              className="animate-item bg-slate-900/50 border-indigo-500/20 hover:border-indigo-500/40 overflow-hidden group transition-all duration-300 hover:shadow-2xl hover:shadow-indigo-500/20 backdrop-blur-sm"
-            >
-              {/* Project Image */}
-              <div className="relative h-48 overflow-hidden">
-                <img
-                  src={project.image}
-                  alt={project.title}
-                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-slate-900 to-transparent opacity-60" />
-                {/* Location Badge */}
-                <div className="absolute top-4 right-4 px-3 py-1 rounded-full bg-indigo-600/80 backdrop-blur-sm text-xs text-white font-medium">
-                  {project.location}
-                </div>
-              </div>
+        {/* Tabs */}
+        <Tabs defaultValue="websites" className="w-full">
+          <TabsList className="flex flex-wrap gap-2 mb-8 justify-center h-auto p-0 bg-transparent border-0">
+            {projectCategories.map((category) => (
+              <TabsTrigger
+                key={category.id}
+                value={category.id}
+                className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-indigo-600 data-[state=active]:to-violet-600 data-[state=active]:text-white text-slate-400 bg-slate-900/50 border border-indigo-500/20 hover:border-indigo-500/40 transition-all duration-300 text-sm px-4 py-2 rounded-lg data-[state=active]:shadow-lg data-[state=active]:shadow-indigo-500/20 data-[state=active]:border-indigo-500/60"
+              >
+                {category.label}
+              </TabsTrigger>
+            ))}
+          </TabsList>
 
-              <CardContent className="p-6">
-                {/* Title & Description */}
-                <h3 className="text-xl font-bold text-white mb-2">{project.title}</h3>
-                <p className="text-slate-400 text-sm mb-4 leading-relaxed">{project.description}</p>
-
-                {/* Key Result */}
-                <div className="flex items-center gap-2 mb-4 p-3 rounded-lg bg-indigo-600/10 border border-indigo-500/20">
-                  <TrendingUp className="text-indigo-400" size={18} />
-                  <span className="text-indigo-300 text-sm font-medium">{project.result}</span>
-                </div>
-
-                {/* Tech Stack */}
-                <div className="flex flex-wrap gap-2 mb-4">
-                  {project.tech.map((tech, i) => (
-                    <span
-                      key={i}
-                      className="px-2 py-1 rounded-md bg-slate-800/50 text-slate-300 text-xs border border-slate-700"
+          {projectCategories.map((category) => (
+            <TabsContent key={category.id} value={category.id} className="mt-6">
+              {category.projects.length > 0 ? (
+                <div className="flex flex-wrap justify-center gap-6">
+                  {category.projects.map((project, index) => (
+                    <div
+                      key={index}
+                      className="animate-item group relative w-full md:w-[calc(50%-0.75rem)] lg:w-[calc(33.333%-1rem)] xl:w-[calc(33.333%-1rem)]"
                     >
-                      {tech}
-                    </span>
+                      {/* Main Card Container */}
+                      <div className="relative h-full rounded-2xl overflow-hidden bg-gradient-to-br from-slate-900/90 via-slate-800/80 to-slate-900/90 border border-indigo-500/20 backdrop-blur-xl transition-all duration-500 hover:border-indigo-500/60 hover:shadow-2xl hover:shadow-indigo-500/20 hover:-translate-y-2">
+                        {/* Gradient Overlay on Hover */}
+                        <div className="absolute inset-0 bg-gradient-to-br from-indigo-600/0 via-violet-600/0 to-purple-600/0 group-hover:from-indigo-600/10 group-hover:via-violet-600/5 group-hover:to-purple-600/10 transition-all duration-500 z-10" />
+                        
+                        {/* Image Section */}
+                        <div className="relative h-64 overflow-hidden">
+                          <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/20 to-violet-500/20 opacity-50 group-hover:opacity-70 transition-opacity duration-500 z-10" />
+                          <img
+                            src={project.image}
+                            alt={`${project.title} - ${project.description} - Web Development Project by ZH Solutions`}
+                            title={`${project.title} - ${project.location} - Software Development Project`}
+                            loading="lazy"
+                            className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                          />
+                          
+                          {/* Location Badge - Modern Design */}
+                          <div className="absolute top-4 right-4 z-20">
+                            <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-gradient-to-r from-indigo-600/90 to-violet-600/90 backdrop-blur-md border border-indigo-400/30 shadow-lg">
+                              <MapPin className="text-white" size={12} />
+                              <span className="text-white text-xs font-medium">{project.location}</span>
+                            </div>
+                          </div>
+
+                          {/* Shine Effect on Hover */}
+                          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 z-10" />
+                        </div>
+
+                        {/* Content Section */}
+                        <div className="relative p-6 z-10">
+                          {/* Title */}
+                          <div className="mb-3">
+                            <h3 className="text-2xl font-bold text-white mb-1 group-hover:text-transparent group-hover:bg-gradient-to-r group-hover:from-indigo-400 group-hover:to-violet-400 group-hover:bg-clip-text transition-all duration-300">
+                              {project.title}
+                            </h3>
+                            <div className="h-0.5 w-0 bg-gradient-to-r from-indigo-500 to-violet-500 group-hover:w-full transition-all duration-500" />
+                          </div>
+
+                          {/* Description */}
+                          <p className="text-slate-400 text-sm mb-5 leading-relaxed line-clamp-2">
+                            {project.description}
+                          </p>
+
+                          {/* Key Result - Modern Badge */}
+                          <div className="mb-5 p-3.5 rounded-xl bg-gradient-to-r from-indigo-600/10 via-violet-600/10 to-purple-600/10 border border-indigo-500/20 backdrop-blur-sm group-hover:border-indigo-500/40 group-hover:shadow-lg group-hover:shadow-indigo-500/10 transition-all duration-300">
+                            <div className="flex items-center gap-2.5">
+                              <div className="p-1.5 rounded-lg bg-gradient-to-br from-indigo-500/20 to-violet-500/20">
+                                <TrendingUp className="text-indigo-400" size={16} />
+                              </div>
+                              <span className="text-indigo-300 text-sm font-semibold">{project.result}</span>
+                            </div>
+                          </div>
+
+                          {/* Tech Stack - Modern Pills */}
+                          <div className="flex flex-wrap gap-2 mb-5">
+                            {project.tech.map((tech, i) => (
+                              <span
+                                key={i}
+                                className="px-3 py-1.5 rounded-lg bg-slate-800/60 backdrop-blur-sm text-slate-300 text-xs font-medium border border-slate-700/50 group-hover:border-indigo-500/30 group-hover:bg-indigo-500/5 group-hover:text-indigo-300 transition-all duration-300"
+                              >
+                                {tech}
+                              </span>
+                            ))}
+                          </div>
+
+                          {/* CTA Button - Modern Design */}
+                          <Button
+                            variant="outline"
+                            className="w-full group/btn relative overflow-hidden border-2 border-indigo-500/50 bg-gradient-to-r from-indigo-600/10 to-violet-600/10 text-indigo-300 hover:border-indigo-500 hover:from-indigo-600/20 hover:to-violet-600/20 hover:text-white transition-all duration-300"
+                          >
+                            <span className="relative z-10 flex items-center justify-center gap-2">
+                              View Case Study
+                              <ExternalLink className="group-hover/btn:translate-x-1 group-hover/btn:-translate-y-1 transition-transform duration-300" size={16} />
+                            </span>
+                            <div className="absolute inset-0 bg-gradient-to-r from-indigo-600/0 to-violet-600/0 group-hover/btn:from-indigo-600/30 group-hover/btn:to-violet-600/30 transition-all duration-300" />
+                          </Button>
+                        </div>
+
+                        {/* Corner Accent */}
+                        <div className="absolute top-0 left-0 w-20 h-20 bg-gradient-to-br from-indigo-500/20 to-transparent rounded-br-full opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                        <div className="absolute bottom-0 right-0 w-20 h-20 bg-gradient-to-tl from-violet-500/20 to-transparent rounded-tl-full opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                      </div>
+                    </div>
                   ))}
                 </div>
-
-                {/* View Case Study Button */}
-                <Button
-                  variant="outline"
-                  className="w-full border-indigo-500/50 text-indigo-300 hover:bg-indigo-500/10 group/btn"
-                >
-                  View Case Study
-                  <ExternalLink className="ml-2 group-hover/btn:translate-x-1 transition-transform" size={16} />
-                </Button>
-              </CardContent>
-            </Card>
+              ) : (
+                <div className="text-center py-12">
+                  <p className="text-slate-400 text-lg">No projects in this category yet. Check back soon!</p>
+                </div>
+              )}
+            </TabsContent>
           ))}
-        </div>
+        </Tabs>
       </div>
     </section>
   );
