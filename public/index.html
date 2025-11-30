@@ -62,6 +62,16 @@
     />
     <link rel="apple-touch-icon" sizes="180x180" href="%PUBLIC_URL%/favicon-32x32.png" />
     
+    <!-- Resource Hints for Performance -->
+    <link rel="preconnect" href="https://assets.calendly.com" crossorigin />
+    <link rel="dns-prefetch" href="https://assets.calendly.com" />
+    <link rel="preconnect" href="https://assets.emergent.sh" crossorigin />
+    <link rel="dns-prefetch" href="https://assets.emergent.sh" />
+    <link rel="preconnect" href="https://us.i.posthog.com" crossorigin />
+    <link rel="dns-prefetch" href="https://us.i.posthog.com" />
+    <link rel="preconnect" href="https://unpkg.com" crossorigin />
+    <link rel="dns-prefetch" href="https://unpkg.com" />
+    
     <!-- Structured Data (JSON-LD) for SEO -->
     <script type="application/ld+json">
     {
@@ -144,16 +154,27 @@
       work correctly both with client-side routing and a non-root public URL.
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
+    <!-- Defer non-critical CSS and Scripts -->
     <link
       href="https://assets.calendly.com/assets/external/widget.css"
       rel="stylesheet"
+      media="print"
+      onload="this.media='all'"
     />
-    <script src="https://assets.emergent.sh/scripts/emergent-main.js"></script>
+    <noscript>
+      <link
+        href="https://assets.calendly.com/assets/external/widget.css"
+        rel="stylesheet"
+      />
+    </noscript>
+    
+    <!-- Defer Emergent script -->
+    <script src="https://assets.emergent.sh/scripts/emergent-main.js" defer></script>
     <!--
         These two scripts have been added for the testing, please do not edit or remove them
         -->
-    <script src="https://unpkg.com/rrweb@latest/dist/rrweb.min.js"></script>
-    <script src="https://d2adkz2s9zrlge.cloudfront.net/rrweb-recorder-20250919-1.js"></script>
+    <script src="https://unpkg.com/rrweb@latest/dist/rrweb.min.js" defer></script>
+    <script src="https://d2adkz2s9zrlge.cloudfront.net/rrweb-recorder-20250919-1.js" defer></script>
     <!--
         These two scripts have been added for the Visual Edits, please do not edit or remove them
         -->
@@ -184,21 +205,39 @@
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
+    <!-- Defer Calendly widget initialization -->
     <script
       src="https://assets.calendly.com/assets/external/widget.js"
       type="text/javascript"
-      async
+      defer
     ></script>
     <script type="text/javascript">
-      window.onload = function () {
-        Calendly.initBadgeWidget({
-          url: "https://calendly.com/arslanmukhtarpro",
-          text: "Schedule time with me",
-          color: "#0069ff",
-          textColor: "#ffffff",
-          branding: true,
-        });
-      };
+      // Defer Calendly initialization until after page load
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initCalendly);
+      } else {
+        // Use requestIdleCallback for better performance, fallback to setTimeout
+        if ('requestIdleCallback' in window) {
+          requestIdleCallback(initCalendly, { timeout: 2000 });
+        } else {
+          setTimeout(initCalendly, 2000);
+        }
+      }
+      
+      function initCalendly() {
+        if (typeof Calendly !== 'undefined') {
+          Calendly.initBadgeWidget({
+            url: "https://calendly.com/arslanmukhtarpro",
+            text: "Schedule time with me",
+            color: "#0069ff",
+            textColor: "#ffffff",
+            branding: true,
+          });
+        } else {
+          // Retry if Calendly not loaded yet
+          setTimeout(initCalendly, 500);
+        }
+      }
     </script>
     <!--
       This HTML file is a template.
@@ -269,6 +308,7 @@
             ((p = t.createElement("script")).type = "text/javascript"),
               (p.crossOrigin = "anonymous"),
               (p.async = !0),
+              (p.defer = !0),
               (p.src =
                 s.api_host.replace(".i.posthog.com", "-assets.i.posthog.com") +
                 "/static/array.js"),
@@ -302,10 +342,34 @@
           }),
           (e.__SV = 1));
       })(document, window.posthog || []);
-      posthog.init("phc_yJW1VjHGGwmCbbrtczfqqNxgBDbhlhOWcdzcIJEOTFE", {
-        api_host: "https://us.i.posthog.com",
-        person_profiles: "identified_only", // or 'always' to create profiles for anonymous users as well
-      });
+      
+      // Defer PostHog initialization until after page load
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initPostHog);
+      } else {
+        if ('requestIdleCallback' in window) {
+          requestIdleCallback(initPostHog, { timeout: 3000 });
+        } else {
+          setTimeout(initPostHog, 3000);
+        }
+      }
+      
+      function initPostHog() {
+        if (typeof posthog !== 'undefined') {
+          posthog.init("phc_yJW1VjHGGwmCbbrtczfqqNxgBDbhlhOWcdzcIJEOTFE", {
+            api_host: "https://us.i.posthog.com",
+            person_profiles: "identified_only",
+            loaded: function(posthog) {
+              // Only start session recording after user interaction
+              if ('requestIdleCallback' in window) {
+                requestIdleCallback(() => posthog.startSessionRecording(), { timeout: 5000 });
+              } else {
+                setTimeout(() => posthog.startSessionRecording(), 5000);
+              }
+            }
+          });
+        }
+      }
     </script>
   </body>
 </html>

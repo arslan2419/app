@@ -2,6 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Hide Calendly widget when mobile menu is open */
+body.menu-open [data-calendly-widget],
+body.menu-open .calendly-badge-widget,
+body.menu-open a[href*="calendly.com"] {
+  display: none !important;
+  z-index: 1 !important;
+}
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
