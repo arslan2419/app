@@ -42,8 +42,17 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
           {/* Brand */}
           <div>
-            <div className="text-2xl font-bold bg-gradient-to-r from-indigo-400 to-violet-400 bg-clip-text text-transparent mb-4">
-              ZH Solutions
+          <div className="flex items-center align-middle">
+              <img src="/zh-icon.svg" alt="ZH Solutions" className="w-14 h-auto" />
+              <div
+                className="text-2xl font-bold bg-gradient-to-r from-indigo-400 to-violet-400 bg-clip-text text-transparent cursor-pointer z-50 relative"
+                onClick={() => {
+                  window.scrollTo({ top: 0, behavior: 'smooth' });
+                  setIsMobileMenuOpen(false);
+                }}
+              >
+                Solutions
+              </div>
             </div>
             <p className="text-slate-400 text-sm leading-relaxed">
               Building high-performance, scalable web applications that drive real business results.
