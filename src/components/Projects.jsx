@@ -1,8 +1,46 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button } from './ui/button';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from './ui/tabs';
 import { ExternalLink, TrendingUp, MapPin } from 'lucide-react';
 import { projectsData } from '../data/mock';
+
+// Image Carousel Component with fade transitions
+const ImageCarousel = ({ images, title, description, location }) => {
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [isPaused, setIsPaused] = useState(false);
+
+  useEffect(() => {
+    if (!images || images.length <= 1 || isPaused) return;
+
+    const interval = setInterval(() => {
+      setCurrentIndex((prev) => (prev + 1) % images.length);
+    }, 1500);
+
+    return () => clearInterval(interval);
+  }, [images, isPaused]);
+
+  if (!images || images.length === 0) return null;
+
+  return (
+    <div 
+      className="relative w-full h-full"
+      onMouseEnter={() => setIsPaused(true)}
+      onMouseLeave={() => setIsPaused(false)}
+    >
+      {images.map((image, index) => (
+        <img
+          key={index}
+          src={image}
+          alt={`${title} - ${description} - Web Development Project by ZH Solutions`}
+          title={`${title} - ${location} - Software Development Project`}
+          loading="lazy"
+          className={`absolute inset-0 w-full h-full object-contain transition-opacity duration-1000 ease-in-out ${index === currentIndex ? 'opacity-100' : 'opacity-0'
+            }`}
+        />
+      ))}
+    </div>
+  );
+};
 
 const Projects = () => {
   // Organize projects by category
@@ -14,6 +52,9 @@ const Projects = () => {
         projectsData[0], // Codly
         projectsData[1], // Gecora
         projectsData[3], // TUKE
+        // projectsData[2], // Zhir AI
+        // projectsData[4], // Gigant
+        // projectsData[5], // Legro
       ]
     },
     {
@@ -21,12 +62,16 @@ const Projects = () => {
       label: 'Apps',
       projects: [
         // Add mobile app projects here when available
+        projectsData[6], // Marian Go
       ]
     },
     {
       id: 'branding',
       label: 'Branding & Design',
       projects: [
+        // projectsData[0], // Codly
+        // projectsData[1], // Gecora
+        // projectsData[3], // TUKE
         projectsData[2], // Zhir AI
         projectsData[4], // Gigant
         projectsData[5], // Legro
@@ -75,18 +120,17 @@ const Projects = () => {
                       <div className="relative h-full rounded-2xl overflow-hidden bg-gradient-to-br from-slate-900/90 via-slate-800/80 to-slate-900/90 border border-indigo-500/20 backdrop-blur-xl transition-all duration-500 hover:border-indigo-500/60 hover:shadow-2xl hover:shadow-indigo-500/20 hover:-translate-y-2">
                         {/* Gradient Overlay on Hover */}
                         <div className="absolute inset-0 bg-gradient-to-br from-indigo-600/0 via-violet-600/0 to-purple-600/0 group-hover:from-indigo-600/10 group-hover:via-violet-600/5 group-hover:to-purple-600/10 transition-all duration-500 z-10" />
-                        
+
                         {/* Image Section */}
-                        <div className="relative h-64 overflow-hidden">
+                        <div className="relative h-80 overflow-hidden">
                           <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/20 to-violet-500/20 opacity-50 group-hover:opacity-70 transition-opacity duration-500 z-10" />
-                          <img
-                            src={project.image}
-                            alt={`${project.title} - ${project.description} - Web Development Project by ZH Solutions`}
-                            title={`${project.title} - ${project.location} - Software Development Project`}
-                            loading="lazy"
-                            className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                          <ImageCarousel
+                            images={project?.images}
+                            title={project.title}
+                            description={project.description}
+                            location={project.location}
                           />
-                          
+
                           {/* Location Badge - Modern Design */}
                           <div className="absolute top-4 right-4 z-20">
                             <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-gradient-to-r from-indigo-600/90 to-violet-600/90 backdrop-blur-md border border-indigo-400/30 shadow-lg">
