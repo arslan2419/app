@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from './ui/card';
 import { Button } from './ui/button';
 import { Check, Sparkles } from 'lucide-react';
 
 const Pricing = () => {
+  const [currency, setCurrency] = useState('USD'); // 'USD' or 'PKR'
+
   const scrollToSection = (id) => {
     const element = document.getElementById(id);
     if (element) {
@@ -15,7 +17,8 @@ const Pricing = () => {
     {
       name: 'Starter',
       description: 'Perfect for small businesses starting their online presence',
-      price: '$1,200',
+      priceUSD: '$1,200',
+      pricePKR: 'Rs. 75,000',
       period: 'one-time',
       popular: false,
       features: [
@@ -35,7 +38,8 @@ const Pricing = () => {
     {
       name: 'Business',
       description: 'Ideal for growing businesses with advanced features',
-      price: '$2,500',
+      priceUSD: '$2,500',
+      pricePKR: 'Rs. 150,000',
       period: 'one-time',
       popular: true,
       features: [
@@ -57,7 +61,8 @@ const Pricing = () => {
     {
       name: 'Enterprise',
       description: 'Complete solution for large-scale businesses',
-      price: '$5,000',
+      priceUSD: '$5,000',
+      pricePKR: 'Rs. 300,000',
       period: 'one-time',
       popular: false,
       features: [
@@ -89,9 +94,29 @@ const Pricing = () => {
             <span className="animate-heading-word">Your</span>{' '}
             <span className="animate-heading-gradient bg-gradient-to-r from-indigo-400 to-violet-400 bg-clip-text text-transparent">Plan</span>
           </h2>
-          <p className="text-lg text-slate-400 max-w-2xl mx-auto">
+          <p className="text-lg text-slate-400 max-w-2xl mx-auto mb-8">
             Select the perfect package for your business needs. All plans include professional development and ongoing support.
           </p>
+          
+          {/* Currency Toggle */}
+          <div className="flex items-center justify-center gap-4">
+            <span className={`text-sm font-medium transition-colors duration-300 ${currency === 'PKR' ? 'text-indigo-400' : 'text-slate-500'}`}>
+              🇵🇰 PKR
+            </span>
+            <button
+              onClick={() => setCurrency(currency === 'USD' ? 'PKR' : 'USD')}
+              className="relative w-14 h-7 rounded-full bg-slate-800 border border-indigo-500/30 transition-all duration-300 hover:border-indigo-500/50"
+            >
+              <div
+                className={`absolute top-1 w-5 h-5 rounded-full bg-gradient-to-r from-indigo-500 to-violet-500 transition-all duration-300 ${
+                  currency === 'USD' ? 'left-8' : 'left-1'
+                }`}
+              />
+            </button>
+            <span className={`text-sm font-medium transition-colors duration-300 ${currency === 'USD' ? 'text-indigo-400' : 'text-slate-500'}`}>
+              🌍 USD
+            </span>
+          </div>
         </div>
 
         {/* Pricing Cards */}
@@ -118,7 +143,7 @@ const Pricing = () => {
                 
                 <div className="mb-6">
                   <div className="flex items-baseline justify-center gap-2">
-                    <span className="text-5xl font-bold text-white">{plan.price}</span>
+                    <span className="text-5xl font-bold text-white">{currency === 'USD' ? plan.priceUSD : plan.pricePKR}</span>
                     <span className="text-slate-400 text-sm">/{plan.period}</span>
                   </div>
                 </div>
