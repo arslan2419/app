@@ -165,7 +165,7 @@ const Contact = () => {
   ];
 
   return (
-    <section id="contact" className="py-24 px-6 relative observe-section opacity-0">
+    <section id="contact" className="py-10 md:py-24 px-6 relative observe-section opacity-0">
       <div className="container mx-auto">
         {/* Section Header */}
         <div className="text-center mb-16 animate-header">
@@ -182,19 +182,19 @@ const Contact = () => {
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
           {/* Contact Info Cards */}
-          <div className="space-y-4">
+          <address className="space-y-4 not-italic">
             {contactInfo.map((info, index) => {
               const Icon = info.icon;
               const content = (
                 <Card className="animate-item bg-slate-900/50 border-indigo-500/20 hover:border-indigo-500/40 transition-all duration-300 hover:shadow-lg hover:shadow-indigo-500/10 backdrop-blur-sm">
                   <CardContent className="p-6">
                     <div className="flex flex-col items-start">
-                      <div className="w-14 h-14 rounded-xl bg-slate-800/60 flex items-center justify-center flex-shrink-0 mb-4">
+                      <div className="w-14 h-14 rounded-xl bg-slate-800/60 flex items-center justify-center flex-shrink-0 mb-4" aria-hidden="true">
                         <Icon className="text-white" size={24} />
                       </div>
                       <div className="w-full">
-                        <div className="text-sm text-slate-400 mb-2">{info.label}</div>
-                        <div className="text-white font-bold text-lg">{info.value}</div>
+                        <span className="text-sm text-slate-400 mb-2 block">{info.label}</span>
+                        <span className="text-white font-bold text-lg block">{info.value}</span>
                       </div>
                     </div>
                   </CardContent>
@@ -202,19 +202,19 @@ const Contact = () => {
               );
 
               return info.link ? (
-                <a key={index} href={info.link} target={info.link.startsWith('http') ? '_blank' : '_self'} rel={info.link.startsWith('http') ? 'noopener noreferrer' : ''} className="block">
+                <a key={index} href={info.link} target={info.link.startsWith('http') ? '_blank' : '_self'} rel={info.link.startsWith('http') ? 'noopener noreferrer' : ''} className="block" aria-label={`${info.label}: ${info.value}`}>
                   {content}
                 </a>
               ) : (
                 <div key={index}>{content}</div>
               );
             })}
-          </div>
+          </address>
 
           {/* Contact Form */}
           <Card className="animate-item lg:col-span-2 bg-slate-900/50 border-indigo-500/20 backdrop-blur-sm">
             <CardHeader>
-              <CardTitle className="text-2xl text-white">Send us a message</CardTitle>
+              <CardTitle as="h3" className="text-2xl text-white">Send us a message</CardTitle>
               <CardDescription className="text-slate-400">
                 Fill out the form below and we'll get back to you within 24 hours.
               </CardDescription>

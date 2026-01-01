@@ -70,25 +70,27 @@ const Home = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-950 via-indigo-950 to-slate-950">
       <Header />
-      <Hero />
-      <Suspense fallback={<SectionPlaceholder />}>
-        <Services />
-      </Suspense>
-      <Suspense fallback={<SectionPlaceholder />}>
-        <Projects />
-      </Suspense>
-      <Suspense fallback={<SectionPlaceholder />}>
-        <Pricing />
-      </Suspense>
-      <Suspense fallback={<SectionPlaceholder />}>
-        <About />
-      </Suspense>
-      <Suspense fallback={<SectionPlaceholder />}>
-        <Testimonials />
-      </Suspense>
-      <Suspense fallback={<SectionPlaceholder />}>
-        <Contact />
-      </Suspense>
+      <main>
+        <Hero />
+        <Suspense fallback={<SectionPlaceholder />}>
+          <Services />
+        </Suspense>
+        <Suspense fallback={<SectionPlaceholder />}>
+          <Projects />
+        </Suspense>
+        <Suspense fallback={<SectionPlaceholder />}>
+          <Pricing />
+        </Suspense>
+        <Suspense fallback={<SectionPlaceholder />}>
+          <About />
+        </Suspense>
+        <Suspense fallback={<SectionPlaceholder />}>
+          <Testimonials />
+        </Suspense>
+        <Suspense fallback={<SectionPlaceholder />}>
+          <Contact />
+        </Suspense>
+      </main>
       <Suspense fallback={<SectionPlaceholder />}>
         <Footer />
       </Suspense>

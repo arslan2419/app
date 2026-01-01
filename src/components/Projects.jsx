@@ -80,7 +80,7 @@ const Projects = () => {
   ];
 
   return (
-    <section id="projects" className="py-24 px-6 relative observe-section opacity-0">
+    <section id="projects" className="py-10 md:py-24 px-6 relative observe-section opacity-0">
       <div className="container mx-auto">
         {/* Section Header */}
         <div className="text-center mb-16 animate-header">
@@ -112,7 +112,7 @@ const Projects = () => {
               {category.projects.length > 0 ? (
                 <div className="flex flex-wrap justify-center gap-6">
                   {category.projects.map((project, index) => (
-                    <div
+                    <article
                       key={index}
                       className="animate-item group relative w-full md:w-[calc(50%-0.75rem)] lg:w-[calc(33.333%-1rem)] xl:w-[calc(33.333%-1rem)]"
                     >
@@ -194,10 +194,10 @@ const Projects = () => {
                         </div>
 
                         {/* Corner Accent */}
-                        <div className="absolute top-0 left-0 w-20 h-20 bg-gradient-to-br from-indigo-500/20 to-transparent rounded-br-full opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                        <div className="absolute bottom-0 right-0 w-20 h-20 bg-gradient-to-tl from-violet-500/20 to-transparent rounded-tl-full opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                        <div className="absolute top-0 left-0 w-20 h-20 bg-gradient-to-br from-indigo-500/20 to-transparent rounded-br-full opacity-0 group-hover:opacity-100 transition-opacity duration-500" aria-hidden="true" />
+                        <div className="absolute bottom-0 right-0 w-20 h-20 bg-gradient-to-tl from-violet-500/20 to-transparent rounded-tl-full opacity-0 group-hover:opacity-100 transition-opacity duration-500" aria-hidden="true" />
                       </div>
-                    </div>
+                    </article>
                   ))}
                 </div>
               ) : (

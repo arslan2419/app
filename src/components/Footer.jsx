@@ -60,20 +60,21 @@ const Footer = () => {
           </div>
 
           {/* Quick Links */}
-          <div>
+          <nav aria-label="Footer navigation">
             <h3 className="text-white font-semibold mb-4">Quick Links</h3>
-            <nav className="flex flex-col space-y-2">
+            <ul className="flex flex-col space-y-2">
               {footerLinks.map((link) => (
-                <button
-                  key={link.id}
-                  onClick={() => scrollToSection(link.id)}
-                  className="text-slate-400 hover:text-indigo-400 transition-colors duration-200 text-sm text-left"
-                >
-                  {link.name}
-                </button>
+                <li key={link.id}>
+                  <button
+                    onClick={() => scrollToSection(link.id)}
+                    className="text-slate-400 hover:text-indigo-400 transition-colors duration-200 text-sm text-left"
+                  >
+                    {link.name}
+                  </button>
+                </li>
               ))}
-            </nav>
-          </div>
+            </ul>
+          </nav>
 
           {/* Social Links */}
           <div>

@@ -85,7 +85,7 @@ const Pricing = () => {
   ];
 
   return (
-    <section id="pricing" className="py-24 px-6 relative observe-section opacity-0">
+    <section id="pricing" className="py-10 md:py-24 px-6 relative observe-section opacity-0">
       <div className="container mx-auto max-w-7xl">
         {/* Section Header */}
         <div className="text-center mb-16 animate-header">
@@ -122,64 +122,65 @@ const Pricing = () => {
         {/* Pricing Cards */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
           {plans.map((plan, index) => (
-            <Card
-              key={index}
-              className={`animate-item relative bg-slate-900/50 border-indigo-500/20 hover:border-indigo-500/40 transition-all duration-300 hover:shadow-2xl hover:shadow-indigo-500/20 hover:-translate-y-2 backdrop-blur-sm ${
-                plan.popular ? 'md:-mt-4 md:mb-4 border-indigo-500/50' : ''
-              }`}
-            >
-              {plan.popular && (
-                <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
-                  <div className="bg-gradient-to-r from-indigo-600 to-violet-600 text-white px-4 py-1 rounded-full text-sm font-medium flex items-center gap-2">
-                    <Sparkles size={14} />
-                    MOST POPULAR
+            <article key={index}>
+              <Card
+                className={`animate-item h-full relative bg-slate-900/50 border-indigo-500/20 hover:border-indigo-500/40 transition-all duration-300 hover:shadow-2xl hover:shadow-indigo-500/20 hover:-translate-y-2 backdrop-blur-sm ${
+                  plan.popular ? 'md:-mt-4 md:mb-4 border-indigo-500/50' : ''
+                }`}
+              >
+                {plan.popular && (
+                  <div className="absolute -top-4 sm:w-auto w-3/4 left-1/2 transform -translate-x-1/2">
+                    <div className="bg-gradient-to-r from-indigo-600 to-violet-600 text-white px-4 py-1 rounded-full text-sm font-medium flex justify-center align-middle items-center gap-2">
+                      <Sparkles size={14} aria-hidden="true" />
+                      MOST POPULAR
+                    </div>
                   </div>
-                </div>
-              )}
-              
-              <CardHeader className="text-center pb-8">
-                <CardTitle className="text-2xl font-bold text-white mb-2">{plan.name}</CardTitle>
-                <CardDescription className="text-slate-400 mb-6">{plan.description}</CardDescription>
+                )}
                 
-                <div className="mb-6">
-                  <div className="flex items-baseline justify-center gap-2">
-                    <span className="text-5xl font-bold text-white">{currency === 'USD' ? plan.priceUSD : plan.pricePKR}</span>
-                    <span className="text-slate-400 text-sm">/{plan.period}</span>
+                <CardHeader className="text-center pb-8">
+                  <CardTitle className="text-2xl font-bold text-white mb-2">{plan.name}</CardTitle>
+                  <CardDescription className="text-slate-400 mb-6">{plan.description}</CardDescription>
+                  
+                  <div className="mb-6">
+                    <div className="flex items-baseline justify-center gap-2">
+                      <span className="text-5xl font-bold text-white">{currency === 'USD' ? plan.priceUSD : plan.pricePKR}</span>
+                      <span className="text-slate-400 text-sm">/{plan.period}</span>
+                    </div>
                   </div>
-                </div>
-              </CardHeader>
+                </CardHeader>
 
-              <CardContent>
-                <ul className="space-y-4 mb-8">
-                  {plan.features.map((feature, featureIndex) => (
-                    <li key={featureIndex} className="flex items-start gap-3">
-                      <div className={`flex-shrink-0 w-5 h-5 rounded-full flex items-center justify-center mt-0.5 ${
-                        plan.popular 
-                          ? 'bg-gradient-to-r from-indigo-500 to-violet-500' 
-                          : 'bg-indigo-500/20'
-                      }`}>
-                        <Check 
-                          className={`${plan.popular ? 'text-white' : 'text-indigo-400'}`} 
-                          size={14} 
-                        />
-                      </div>
-                      <span className="text-slate-300 text-sm leading-relaxed">{feature}</span>
-                    </li>
-                  ))}
-                </ul>
+                <CardContent>
+                  <ul className="space-y-4 mb-8">
+                    {plan.features.map((feature, featureIndex) => (
+                      <li key={featureIndex} className="flex items-start gap-3">
+                        <div className={`flex-shrink-0 w-5 h-5 rounded-full flex items-center justify-center mt-0.5 ${
+                          plan.popular 
+                            ? 'bg-gradient-to-r from-indigo-500 to-violet-500' 
+                            : 'bg-indigo-500/20'
+                        }`} aria-hidden="true">
+                          <Check 
+                            className={`${plan.popular ? 'text-white' : 'text-indigo-400'}`} 
+                            size={14} 
+                          />
+                        </div>
+                        <span className="text-slate-300 text-sm leading-relaxed">{feature}</span>
+                      </li>
+                    ))}
+                  </ul>
 
-                <Button
-                  onClick={() => scrollToSection('contact')}
-                  className={`w-full py-6 text-lg font-semibold ${
-                    plan.popular
-                      ? 'bg-gradient-to-r from-indigo-600 to-violet-600 hover:from-indigo-500 hover:to-violet-500 text-white'
-                      : 'bg-slate-800/50 border border-indigo-500/30 text-indigo-300 hover:bg-indigo-500/10 hover:border-indigo-500/50'
-                  } transition-all duration-300`}
-                >
-                  {plan.cta}
-                </Button>
-              </CardContent>
-            </Card>
+                  <Button
+                    onClick={() => scrollToSection('contact')}
+                    className={`w-full py-6 text-lg font-semibold ${
+                      plan.popular
+                        ? 'bg-gradient-to-r from-indigo-600 to-violet-600 hover:from-indigo-500 hover:to-violet-500 text-white'
+                        : 'bg-slate-800/50 border border-indigo-500/30 text-indigo-300 hover:bg-indigo-500/10 hover:border-indigo-500/50'
+                    } transition-all duration-300`}
+                  >
+                    {plan.cta}
+                  </Button>
+                </CardContent>
+              </Card>
+            </article>
           ))}
         </div>
 

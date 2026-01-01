@@ -3,7 +3,7 @@ import { techStackData } from '../data/mock';
 
 const TechStack = () => {
   return (
-    <section className="py-24 px-6 relative observe-section opacity-0">
+    <section className="py-10 md:py-24 px-6 relative observe-section opacity-0">
       <div className="container mx-auto">
         {/* Section Header */}
         <div className="text-center mb-16 animate-header">
