@@ -321,7 +321,7 @@ const Services = () => {
   ];
 
   return (
-    <section id="services" className="py-24 px-6 relative observe-section opacity-0">
+    <section id="services" className="py-10 md:py-24 px-6 relative observe-section opacity-0">
       <div className="container mx-auto">
         {/* Section Header */}
         <div className="text-center mb-16 animate-header">
@@ -354,24 +354,23 @@ const Services = () => {
                 {category.services.map((service, index) => {
                   const Icon = service.icon;
                   return (
-                    <Card
-                      key={index}
-                      className="animate-item bg-slate-900/50 border-indigo-500/20 hover:border-indigo-500/40 transition-all duration-300 hover:shadow-xl hover:shadow-indigo-500/10 hover:-translate-y-1 group backdrop-blur-sm w-full md:w-[calc(50%-0.75rem)] lg:w-[calc(33.333%-1rem)] xl:w-[calc(25%-1.125rem)]"
-                    >
-                      <CardHeader className="pb-3">
-                        <div className="flex items-center gap-3">
-                          <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-indigo-600/20 to-violet-600/20 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform duration-300">
-                            <Icon className="text-indigo-400" size={20} />
+                    <article key={index} className="w-full md:w-[calc(50%-0.75rem)] lg:w-[calc(33.333%-1rem)] xl:w-[calc(25%-1.125rem)]">
+                      <Card className="animate-item h-full bg-slate-900/50 border-indigo-500/20 hover:border-indigo-500/40 transition-all duration-300 hover:shadow-xl hover:shadow-indigo-500/10 hover:-translate-y-1 group backdrop-blur-sm">
+                        <CardHeader className="pb-3">
+                          <div className="flex items-center gap-3">
+                            <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-indigo-600/20 to-violet-600/20 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform duration-300" aria-hidden="true">
+                              <Icon className="text-indigo-400" size={20} />
+                            </div>
+                            <CardTitle className="text-white text-lg leading-tight">{service.title}</CardTitle>
                           </div>
-                          <CardTitle className="text-white text-lg leading-tight">{service.title}</CardTitle>
-                        </div>
-                      </CardHeader>
-                      <CardContent>
-                        <CardDescription className="text-slate-400 leading-relaxed text-sm">
-                          {service.description}
-                        </CardDescription>
-                      </CardContent>
-                    </Card>
+                        </CardHeader>
+                        <CardContent>
+                          <CardDescription className="text-slate-400 leading-relaxed text-sm">
+                            {service.description}
+                          </CardDescription>
+                        </CardContent>
+                      </Card>
+                    </article>
                   );
                 })}
               </div>
